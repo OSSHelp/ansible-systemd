@@ -1,0 +1,12 @@
+[manager]
+DefaultCPUAccounting=yes
+DefaultMemoryAccounting=yes
+DefaultTasksAccounting=yes
+{% if ansible_distribution_release == 'xenial'%}
+DefaultBlockIOAccounting=yes
+{% else %}
+DefaultIOAccounting=yes
+DefaultIPAccounting=yes
+{% endif %}{% for param in systemd_custom_params %}
+{{ param.key }}={{ param.value }}
+{% endfor %}

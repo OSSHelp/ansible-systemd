@@ -1,0 +1,68 @@
+---
+systemd_setup: full
+
+systemd_custom_params: []
+
+systemd_skip_services: []
+
+systemd_services_to_mask: [apt-daily.service, apt-daily-upgrade.service]
+
+systemd_virtualization_types: [VMware, virtualbox, kvm, xen, oVirt, RHV, RHEV, openstack, KubeVirt, VirtualPC, parallels, uml, powervm_lx86, PR/SM, bhyve]
+
+systemd_lxc_services_to_disable:
+  - accounts-daemon.service
+  - acpid.service
+  - apt-daily.timer
+  - apt-daily-upgrade.timer
+  - atd
+  - console-getty.service
+  - console-setup.service
+  - dev-hugepages.mount
+  - dm-event.socket
+  - irqbalance.service
+  - iscsid.service
+  - lvm2-lvmetad.socket
+  - lvm2-lvmpolld.socket
+  - mdadm.service
+  - ondemand
+  - open-vm-tools.service
+  - open-iscsi.service
+  - snapd.apparmor.service
+  - snapd.seeded.service
+  - snapd.service
+  - snapd.socket
+  - systemd-remount-fs.service
+  - systemd-journald-audit.socket
+  - sys-kernel-config.mount
+  - ufw.service
+  - unattended-upgrades.service
+
+systemd_vm_services_to_disable:
+  - accounts-daemon.service
+  - apt-daily.service
+  - apt-daily.timer
+  - apt-daily-upgrade.timer
+  - apt-daily-upgrade.service
+  - atd
+  - unattended-upgrades.service
+  - iscsid.service
+  - lvm2-lvmetad.socket
+  - lvm2-lvmpolld.socket
+  - ondemand
+  - open-iscsi.service
+  - ufw.service
+  - unattended-upgrades.service
+
+systemd_host_services_to_disable:
+  - accounts-daemon.service
+  - apt-daily.service
+  - apt-daily.timer
+  - apt-daily-upgrade.timer
+  - apt-daily-upgrade.service
+  - atd
+  - unattended-upgrades.service
+  - iscsid.service
+  - ondemand
+  - open-iscsi.service
+  - ufw.service
+  - unattended-upgrades.service

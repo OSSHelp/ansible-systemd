@@ -1,0 +1,54 @@
+---
+- name: gather facts
+  setup:
+    gather_subset: virtual
+
+- name: populate service facts
+  service_facts:
+
+- name: generate systemd config
+  template:
+    src: systemd.conf.j2
+    dest: /etc/systemd/system.conf
+    mode: 0644
+
+- name: disable services for LXC
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  loop: "{{ systemd_lxc_services_to_disable | difference(systemd_skip_services) }}"
+  when: ansible_virtualization_type == 'lxc' and systemd_target_server_type is not defined and
+        item in ansible_facts.services
+  ignore_errors: true
+
+- name: disable services for VM
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  loop: "{{ systemd_vm_services_to_disable | difference(systemd_skip_services) }}"
+  when: (ansible_virtualization_type in systemd_virtualization_types and ansible_virtualization_role == 'guest' or
+        systemd_target_server_type is defined and systemd_target_server_type == "virtual") and
+        item in ansible_facts.services
+  ignore_errors: true
+
+- name: disable services for physical server
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  loop: "{{ systemd_host_services_to_disable | difference(systemd_skip_services) }}"
+  when: (ansible_virtualization_role == 'host' or
+        systemd_target_server_type is defined and systemd_target_server_type == "physical") and
+        item in ansible_facts.services
+  ignore_errors: true
+
+- name: mask services
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+    masked: yes
+  with_items: "{{ systemd_services_to_mask | difference(systemd_skip_services) }}"
+  ignore_errors: true
