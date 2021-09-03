@@ -1,0 +1,4 @@
+[Journal]
+{% for param in journald_custom_params %}
+{{ param.key }}={{ param.value }}
+{% endfor %}

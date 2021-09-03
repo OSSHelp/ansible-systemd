@@ -2,9 +2,9 @@
 systemd_setup: full
 
 systemd_custom_params: []
+journald_custom_params: []
 
 systemd_skip_services: []
-
 systemd_services_to_mask: [apt-daily.service, apt-daily-upgrade.service]
 
 systemd_virtualization_types: [VMware, virtualbox, kvm, xen, oVirt, RHV, RHEV, openstack, KubeVirt, VirtualPC, parallels, uml, powervm_lx86, PR/SM, bhyve]

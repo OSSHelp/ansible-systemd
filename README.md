@@ -12,6 +12,10 @@ Role for managing systemd parameters
       systemd_custom_params:
         - { key: param1, value: 'yes' }
         - { key: param2, value: 'no' }
+      journald_custom_params:
+        - { key: SystemMaxUse, value: 64M }
+        - { key: RuntimeMaxUse, value: 64M }
+        - { key: Storage, value: persistent }
 ```
 
 ## Available parameters
@@ -24,6 +28,7 @@ Role for managing systemd parameters
 | `systemd_target_server_type` | `-` | Target server type (physical or virtual) |
 | `systemd_skip_services` | `[]` | List of services to skip |
 | `systemd_custom_params` | `[]` | List of custom params for `/etc/systemd/systemd.conf` |
+| `journald_custom_params` | `[]` | List of custom params for `/etc/systemd/journald.conf` |
 
 ## FAQ
 
